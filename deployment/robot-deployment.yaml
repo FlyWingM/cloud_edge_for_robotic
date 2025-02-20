@@ -1,0 +1,46 @@
+### robot-deployment.yaml
+# robot7,robot9,robot19,robot20,robot21
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robot-deployment-${ROBOT_ID}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: robot-app
+  template:
+    metadata:
+      labels:
+        app: robot-app
+    spec:
+      containers:
+        - name: robot-container
+          image: anton0303/robot-app:v14
+          ports:
+            - containerPort: 5000
+          env:
+            - name: CLOUDGRIPPER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: gripper-secret
+                  key: token
+            - name: FLASK_ENV
+              value: development
+            - name: FLASK_DEBUG
+              value: "1"
+            - name: DETECTION_API_URL
+              #value: "http://object-detection-service.default.svc.cluster.local:8081/services"
+              value: "http://object-detection-edge-service.default.svc.cluster.local:8081/services"              
+            - name: SELECTED_ROBOT_NAME
+              value: "${ROBOT_ID}"
+            - name: MODE
+              value: "autonomous"
+            - name: DATA_NUM
+              value: "2"            # Default 1
+            - name: ITERATIONS
+              value: "10"
+            - name: DELAY
+              value: "1000"            # Default 1000 as 1 second x/1000
+            - name: DEBUG
+              value: "True"

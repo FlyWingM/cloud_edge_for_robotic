@@ -1,0 +1,55 @@
+###object-detection-service-low.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: od-microservice-deployment-low
+  labels:
+    app: od-microservice-app-low
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: od-microservice-app-low
+  template:
+    metadata:
+      labels:
+        app: od-microservice-app-low
+    spec:
+      containers:
+        - name: microservice-od
+          image: anton0303/od-microservice-app-low:v1
+          env:
+            - name: MODEL_QUALITY
+              value: "low"
+            - name: FLASK_PORT
+              value: "8502"
+          ports:
+            - containerPort: 8502
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: od-microservice-low
+  labels:
+    app: od-microservice-app-low
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8502"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: od-microservice-app-low
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8502
+      targetPort: 8502
+  type: ClusterIP

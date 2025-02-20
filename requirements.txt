@@ -1,0 +1,27 @@
+###requirement.txt
+Flask
+numpy
+pandas
+prometheus_client
+requests
+pybase64
+
+# If you need TFLite Model Maker or tflite-support:
+tflite-support
+
+# The full TensorFlow
+tensorflow==2.17.0
+
+# PyTorch (CPU version). For GPU, consult the official instructions or add CUDA packages.
+torch
+torchvision
+
+# If you are sure you only want TFLite runtime, remove "tensorflow==2.17.0" 
+# and restore "tflite-runtime==2.7.0" instead. But do NOT install both at once.
+# tflite-runtime==2.7.0
+
+opencv-python-headless==4.5.5.64
+
+# For example, if you want to keep tflite-model-maker (commented out in your snippet):
+# tflite-model-maker==0.3.4
+# flatbuffers==1.12

@@ -1,0 +1,58 @@
+###object-detection-deployment-service-cloudconnector.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: object-detection-cloud-connector-deployment
+  labels:
+    app: object-detection-cloud-connector-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: object-detection-cloud-connector-app
+  template:
+    metadata:
+      labels:
+        app: object-detection-cloud-connector-app
+    spec:
+      containers:
+        - name: object-detection-cloud-connector-container
+          image: anton0303/object-detection-cloud-connector-app:v4
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          env:
+            - name: FLASK_ENV
+              value: development
+            - name: FLASK_DEBUG
+              value: "1"
+            - name: DEBUG
+              value: "False"
+            - name: CLOUD_DETECTION_API_URL
+              value: "http://129.192.82.37:30809/detect_cloud"              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-detection-cloud-connector-service
+  labels:
+    app: object-detection-cloud-connector-app
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8081'
+    prometheus.io/path: '/metrics'
+spec:
+  selector:
+    app: object-detection-cloud-connector-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

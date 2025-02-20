@@ -1,0 +1,18 @@
+### object-detection-servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: object-detection-service-monitor
+  labels:
+    release: prometheus  # Adjust based on your Prometheus release name
+spec:
+  selector:
+    matchLabels:
+      app: object-detection-app  # Labels of your service
+  namespaceSelector:
+    matchNames:
+      - default  # Namespace where your service is deployed
+  endpoints:
+    - port: metrics  # Name of the port exposing metrics
+      path: /metrics
+      interval: 5s

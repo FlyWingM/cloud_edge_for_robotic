@@ -1,0 +1,56 @@
+###object-detection-service-medium.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: od-microservice-deployment-medium
+  labels:
+    app: od-microservice-app-medium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: od-microservice-app-medium
+  template:
+    metadata:
+      labels:
+        app: od-microservice-app-medium
+    spec:
+      containers:
+        - name: microservice-od
+          image: anton0303/od-microservice-app-low:v1
+          env:
+            - name: MODEL_QUALITY
+              value: "medium"
+            - name: FLASK_PORT
+              value: "8503"
+          ports:
+            - containerPort: 8503
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: od-microservice-medium
+  labels:
+    app: od-microservice-app-medium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8503"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: od-microservice-app-medium
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8503
+      targetPort: 8503
+  type: ClusterIP
+

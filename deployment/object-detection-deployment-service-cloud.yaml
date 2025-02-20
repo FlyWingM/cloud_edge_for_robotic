@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: od-cloudservice-deployment
+  labels:
+    app: od-cloudservice-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: od-cloudservice-app
+  template:
+    metadata:
+      labels:
+        app: od-cloudservice-app
+    spec:
+      containers:
+        - name: od-cloudservice-container
+          image: anton0303/od-cloudservice-app:v12
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          env:
+            - name: FLASK_ENV
+              value: development
+            - name: FLASK_DEBUG
+              value: "1"
+            - name: DEBUG
+              value: "True"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: od-cloudservice-service
+  labels:
+    app: od-cloudservice-app
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8081'
+    prometheus.io/path: '/metrics'
+spec:
+  selector:
+    app: od-cloudservice-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30809  # Manually setting NodePort (ensure it doesn't conflict with others)
+  type: NodePort  # Change this from ClusterIP to NodePort for external access

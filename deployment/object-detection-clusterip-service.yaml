@@ -1,0 +1,14 @@
+### object-detection-clusterip-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-detection-service
+spec:
+  selector:
+    app: object-detection-app
+  ports:
+    - protocol: TCP
+      port: 8081            # Unique internal service port
+      targetPort: 5000       # Container port inside the pod
+  type: ClusterIP           # Internal access only

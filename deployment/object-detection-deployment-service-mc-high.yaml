@@ -1,0 +1,55 @@
+###object-detection-service-high.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: od-microservice-deployment-high
+  labels:
+    app: od-microservice-app-high
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: od-microservice-app-high
+  template:
+    metadata:
+      labels:
+        app: od-microservice-app-high
+    spec:
+      containers:
+        - name: microservice-od
+          image: anton0303/od-microservice-app-low:v1
+          env:
+            - name: MODEL_QUALITY
+              value: "high"
+            - name: FLASK_PORT
+              value: "8504"
+          ports:
+            - containerPort: 8504
+          resources:
+            requests:
+              cpu: "1500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: od-microservice-high
+  labels:
+    app: od-microservice-app-high
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8504"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: od-microservice-app-high
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8504
+      targetPort: 8504
+  type: ClusterIP

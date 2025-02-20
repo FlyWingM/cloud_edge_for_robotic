@@ -1,0 +1,56 @@
+###object-detection-mc-service.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: object-detection-mc-deployment
+  labels:
+    app: object-detection-mc-app  # This label must match the service selector
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: object-detection-mc-app
+  template:
+    metadata:
+      labels:
+        app: object-detection-mc-app
+    spec:
+      containers:
+        - name: object-detection-mc-container
+          image: anton0303/object-detection-mc-app:v31
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+          env:
+            - name: FLASK_ENV
+              value: development
+            - name: FLASK_DEBUG
+              value: "1"
+            - name: DEBUG
+              value: "False"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-detection-mc-service
+  labels:
+    app: object-detection-mc-app
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8081'
+    prometheus.io/path: '/metrics'
+spec:
+  selector:
+    app: object-detection-mc-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

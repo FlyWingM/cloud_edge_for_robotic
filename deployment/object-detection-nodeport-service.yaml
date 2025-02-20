@@ -1,0 +1,15 @@
+### object-detection-nodeport-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-detection-service
+spec:
+  selector:
+    app: object-detection-app
+  ports:
+    - protocol: TCP
+      port: 8081            # Internal service port
+      targetPort: 5000       # Container port inside the pod
+      nodePort: 30081        # External NodePort for external access
+  type: NodePort             # Allows external access via the node IP and specified NodePort
