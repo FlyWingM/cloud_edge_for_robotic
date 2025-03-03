@@ -42,11 +42,47 @@ Distributed anomaly detection for identifying latency spikes, network delays, an
 Redundant execution strategies for mission-critical AI workloads.
 Dynamic fault recovery mechanisms to ensure continuous service.
 
-Installation & Deployment
+###Installation & Deployment
 
-### **Enable Dynamic Offloading**
+**1. Setup Kubernetes Cluster**
+*Ensure Kubernetes (v1.21+) is installed.
+*Deploy the cluster using:
+
+```bash
+kubectl apply -f deployment/object-detection-deployment.yaml
+
+* Verify running pods:
+```bash
+kubectl get pods -n cloud-edge
+
+**2. Run AI Workloads**
+
+* Deploy edge-based inference models:
+```bash
+kubectl apply -f deployment/edge-inference.yaml
+
+* Deploy cloud-based inference models:
+
+```bash
+kubectl apply -f deployment/cloud-inference.yaml
+
+*Enable Dynamic Offloading
 To enable dynamic offloading in the Kubernetes cluster, run:
 
 ```bash
 kubectl apply -f deployment/offload-controller.yaml
 
+
+Performance Benchmarks
+We evaluate our system under real-world cloud-edge scenarios:
+
+Inference Latency (P99, P95): Reducing long-tail latency spikes.
+Throughput: Optimizing frame rate requirements for cloud robotics.
+Fault Resilience: Ensuring uninterrupted AI inference despite failures.
+Energy Efficiency: Minimizing compute power for sustainability.
+Contributors
+Developed as part of WASP-funded research at [Your Institution].
+Primary contributors: Antonio Seo (@antonio-seo).
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
