@@ -21,7 +21,7 @@ Key Features
 System Architecture
 Our cloud-native system is structured as follows:
 
-Kubernetes-Based Orchestration:
+##Kubernetes-Based Orchestration:
 
 Deploys workloads as containerized services.
 Uses horizontal pod autoscaling for adaptive inference scaling.
@@ -41,6 +41,8 @@ Automated Failure Handling:
 Distributed anomaly detection for identifying latency spikes, network delays, and system failures.
 Redundant execution strategies for mission-critical AI workloads.
 Dynamic fault recovery mechanisms to ensure continuous service.
+
+Installation & Deployment
 
 ### **Enable Dynamic Offloading**
 To enable dynamic offloading in the Kubernetes cluster, run:
