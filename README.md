@@ -7,12 +7,12 @@ The system dynamically distributes computational workloads between **high-accura
 
 ## Key Features
 
-- ✅ **Cloud-Native Deployment**: Uses **Kubernetes** and **containerized microservices** for scalable orchestration of AI workloads.
-- ✅ **Hybrid Cloud-Edge Adaptation**: Dynamically offloads inference tasks between **cloud and edge nodes** based on **accuracy-latency trade-offs**.
-- ✅ **Adaptive Model Switching**: Selects **optimal AI models** based on real-time **system constraints** and **workload conditions**.
-- ✅ **Long-Tail Latency Mitigation**: Reduces worst-case **latency spikes (P99, P95)** with **predictive analytics** and **intelligent scheduling**.
-- ✅ **Fault-Tolerant Execution**: Implements **automated failure detection, dynamic task reallocation, and redundant execution strategies**.
-- ✅ **Energy & Cost Efficiency**: Optimizes **resource allocation** to reduce **carbon footprint** and **operational costs** in cloud deployments.
+- **Cloud-Native Deployment**: Uses **Kubernetes** and **containerized microservices** for scalable orchestration of AI workloads.
+- **Hybrid Cloud-Edge Adaptation**: Dynamically offloads inference tasks between **cloud and edge nodes** based on **accuracy-latency trade-offs**.
+- **Adaptive Model Switching**: Selects **optimal AI models** based on real-time **system constraints** and **workload conditions**.
+- **Long-Tail Latency Mitigation**: Reduces worst-case **latency spikes (P99, P95)** with **predictive analytics** and **intelligent scheduling**.
+- **Fault-Tolerant Execution**: Implements **automated failure detection, dynamic task reallocation, and redundant execution strategies**.
+- **Energy & Cost Efficiency**: Optimizes **resource allocation** to reduce **carbon footprint** and **operational costs** in cloud deployments.
 
 ## System Architecture
 Our **cloud-native system** is structured as follows:
@@ -78,8 +78,8 @@ We evaluate our system under **real-world cloud-edge scenarios**:
 - **Energy Efficiency**: Minimizing **compute power** for **sustainability**.
 
 ## Contributors
-Developed as part of **WASP-funded research** at **[Your Institution]**.  
-Primary contributor: **Antonio Seo** [(@antonio-seo)](https://github.com/antonio-seo).
+Developed as part of **WASP-funded research** at **[Umea University]**.  
+Primary contributor: **Eunil (Antonio) Seo** [seoei2@gmail.com)](https://github.com/FlyWingM).
 
 ## License
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
