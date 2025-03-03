@@ -79,7 +79,7 @@ We evaluate our system under **real-world cloud-edge scenarios**:
 
 ## Contributors
 Developed as part of **WASP-funded research** at **[Umea University]**.  
-Primary contributor: **Eunil (Antonio) Seo** [seoei2@gmail.com)](https://github.com/FlyWingM).
+Primary contributor: **Eunil (Antonio) Seo** [(seoei2@gmail.com)](https://github.com/FlyWingM).
 
 ## License
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
